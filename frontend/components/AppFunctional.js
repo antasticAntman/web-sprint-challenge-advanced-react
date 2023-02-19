@@ -1,3 +1,5 @@
+// IMPORTANT-- SWITCH THE X AND Y FOR THE COORDINATES, THEY'RE WRONG LOL!!! ALSO, EVERY TIME YOU PRESS ANY DIRECTION YOU WILL GAIN OR LOSE 1, OR 3
+
 import React,{useState} from 'react'
 import axios from 'axios'
 
@@ -31,19 +33,19 @@ export default function AppFunctional(props) {
     if(index===0){
       return (`(1,1)`);
     } else if (index === 1){
-      return('(1,2)');
-    } else if (index === 2){
-      return('(1,3)');
-    } else if (index === 3){
       return('(2,1)');
+    } else if (index === 2){
+      return('(3,1)');
+    } else if (index === 3){
+      return('(1,2)');
     } else if (index === 4){
       return ('(2,2)');
     } else if (index === 5){
-      return('(2,3)');
-    } else if (index === 6){
-      return('(3,1)');
-    } else if (index === 7){
       return('(3,2)');
+    } else if (index === 6){
+      return('(1,3)');
+    } else if (index === 7){
+      return('(2,3)');
     } else if (index === 8){
       return('(3,3)');
     } 
@@ -62,6 +64,8 @@ export default function AppFunctional(props) {
     setEmail(initialEmail);
     setMessage(initialMessage);
     setSteps(initialSteps);
+     x=2
+     y=2
   }
 
   function getNextIndex(direction) {
@@ -86,7 +90,6 @@ export default function AppFunctional(props) {
       else {setIndex(index+1);
          setSteps(steps + 1)
         x=parseInt(x) +1
-        console.log('number', x)
         }
     }
     if(direction ==='up'){
@@ -96,6 +99,7 @@ export default function AppFunctional(props) {
       }
         else {setIndex(index-3);
         setSteps(steps+1);
+        y=parseInt(y)-1
         }
     }
     if(direction === 'down'){
@@ -105,6 +109,7 @@ export default function AppFunctional(props) {
       }
         else {setIndex(index+3)
           setSteps(steps + 1);
+          y=parseInt(y)+1
         }
     }
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
@@ -128,11 +133,12 @@ export default function AppFunctional(props) {
   function onSubmit(evt) {
     evt.preventDefault();
     // Use a POST request to send a payload to the server.
-    axios.post('http://localhost:9000/api/result', {
-
+    axios.post('http://localhost:9000/api/result', { 'x': x, 'y': y, 'steps': steps, 'email': email
     })
     .then(res => {
-      console.log(res);
+      setMessage(res.data.message);
+      setEmail(initialEmail);
+      // setMessage
     })
     .catch(err => console.error(err, 'It is on fire'));
   }
