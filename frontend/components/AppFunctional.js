@@ -1,11 +1,15 @@
 // IMPORTANT-- SWITCH THE X AND Y FOR THE COORDINATES, THEY'RE WRONG LOL!!! ALSO, EVERY TIME YOU PRESS ANY DIRECTION YOU WILL GAIN OR LOSE 1, OR 3
 
+/*
+I need to go and create a function that makes the string for the steps part. You will need an if statement to figure out if it is one or not. If it is one, it will return a constructed string for the steps
+*/
+
 import React,{useState} from 'react'
 import axios from 'axios'
 
 // Suggested initial states
-let x = '2'
-let y = '2'
+let x = 2
+let y = 2
 const initialMessage = ''
 const initialEmail = ''
 const initialSteps = 0
@@ -26,7 +30,6 @@ export default function AppFunctional(props) {
   const [message, setMessage]=useState(initialMessage);
   
   // const x = arrXY.split('')
-  // console.log(x)
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
@@ -56,8 +59,6 @@ export default function AppFunctional(props) {
     // returns the fully constructed string.
     return `Coordinates ${getXY()}`
   }
-  console.log('x',x)
-  console.log('y',y)
   function reset() {
     // Use this helper to reset all states to their initial values.
     setIndex(initialIndex);
@@ -78,7 +79,7 @@ export default function AppFunctional(props) {
       }
         else{ setIndex(index-1);
           setSteps(steps+1);
-          x=parseInt(x)-1
+          x= x - 1
         }
 
     }
@@ -89,7 +90,8 @@ export default function AppFunctional(props) {
     }
       else {setIndex(index+1);
          setSteps(steps + 1)
-        x=parseInt(x) +1
+        x= x + 1
+        console.log(x)
         }
     }
     if(direction ==='up'){
@@ -99,7 +101,7 @@ export default function AppFunctional(props) {
       }
         else {setIndex(index-3);
         setSteps(steps+1);
-        y=parseInt(y)-1
+        y= y - 1
         }
     }
     if(direction === 'down'){
@@ -109,7 +111,7 @@ export default function AppFunctional(props) {
       }
         else {setIndex(index+3)
           setSteps(steps + 1);
-          y=parseInt(y)+1
+          y= y + 1
         }
     }
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
@@ -117,16 +119,9 @@ export default function AppFunctional(props) {
 
   }
 
-  function move(evt) {
-    evt.preventDefault();
-    // This event handler can use the helper above to obtain a new index for the "B",
-    // and change any states accordingly.
-  }
-
   function onChange(evt) {
     evt.preventDefault();
     // You will need this to update the value of the input.
-    console.log(evt);
     setEmail(evt.target.value);
   }
 
@@ -138,9 +133,8 @@ export default function AppFunctional(props) {
     .then(res => {
       setMessage(res.data.message);
       setEmail(initialEmail);
-      // setMessage
     })
-    .catch(err => console.error(err, 'It is on fire'));
+    .catch(err => setMessage(err.response.data.message));
   }
 
   return (
