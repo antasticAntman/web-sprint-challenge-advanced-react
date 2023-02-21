@@ -61,9 +61,11 @@ export default class AppClass extends React.Component {
     return `Coordinates ${this.getXY()}`
   }
 
-  reset = () => {
+  reset = (evt) => {
+    console.log(this.state.email)
     // Use this helper to reset all states to their initial values.
-    this.setState({email:initialEmail})
+    console.log(this.state.email)
+    this.setState({email: initialEmail})
     this.setState({message: initialMessage})
     this.setState({index: initialIndex})
     this.setState({steps: initialSteps})
@@ -118,6 +120,12 @@ export default class AppClass extends React.Component {
         }
     }
   }
+  stepMessage = () => {
+    if(this.state.steps === 1){
+      return `You moved ${this.state.steps} time`
+    }
+    return `You moved ${this.state.steps} times`
+  }
 
   onChange = (evt) => {
     // You will need this to update the value of the input.
@@ -136,6 +144,7 @@ export default class AppClass extends React.Component {
     })
     .then(res => {
       this.setState({message: res.data.message})
+      this.setState({email: initialEmail});
     })
     .catch(err => this.setState({message: err.response.data.message}))
   }
@@ -146,7 +155,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">{this.getXYMessage()}</h3>
-          <h3 id="steps">You moved {this.state.steps} times</h3>
+          <h3 id="steps">{this.stepMessage()}</h3>
         </div>
         <div id="grid">
           {

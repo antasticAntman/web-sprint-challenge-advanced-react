@@ -34,23 +34,23 @@ export default function AppFunctional(props) {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
     if(index===0){
-      return (`(1,1)`);
+      return (`(1, 1)`);
     } else if (index === 1){
-      return('(2,1)');
+      return('(2, 1)');
     } else if (index === 2){
-      return('(3,1)');
+      return('(3, 1)');
     } else if (index === 3){
-      return('(1,2)');
+      return('(1, 2)');
     } else if (index === 4){
-      return ('(2,2)');
+      return ('(2, 2)');
     } else if (index === 5){
-      return('(3,2)');
+      return('(3, 2)');
     } else if (index === 6){
-      return('(1,3)');
+      return('(1, 3)');
     } else if (index === 7){
-      return('(2,3)');
+      return('(2, 3)');
     } else if (index === 8){
-      return('(3,3)');
+      return('(3, 3)');
     } 
   }
   function getXYMessage() {
@@ -118,6 +118,15 @@ export default function AppFunctional(props) {
     // this helper should return the current index unchanged.
 
   }
+  function stepMessage(){
+    if(steps === 1){
+      return `You moved ${steps} time`
+    }
+    return `You moved ${steps} times`
+  }
+  function successAndFailMessage(){
+    return message
+  }
 
   function onChange(evt) {
     evt.preventDefault();
@@ -134,14 +143,17 @@ export default function AppFunctional(props) {
       setMessage(res.data.message);
       setEmail(initialEmail);
     })
-    .catch(err => setMessage(err.response.data.message));
+    .catch(err => {
+      setMessage(err.response.data.message)
+      setEmail(initialEmail);
+    });
   }
 
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">{`${getXYMessage()}`}</h3>
-        <h3 id="steps">You moved {steps} times</h3>
+        <h3 id="steps">{stepMessage()}</h3>
       </div>
       <div id="grid">
         {
