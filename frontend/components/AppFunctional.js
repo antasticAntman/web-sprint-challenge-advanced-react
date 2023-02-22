@@ -124,9 +124,6 @@ export default function AppFunctional(props) {
     }
     return `You moved ${steps} times`
   }
-  function successAndFailMessage(){
-    return message
-  }
 
   function onChange(evt) {
     evt.preventDefault();

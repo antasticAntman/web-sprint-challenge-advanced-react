@@ -388,6 +388,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F2 ${label}] Actions: down, down, type email, submit
           Success message is correct`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(down)
         fireEvent.click(down)
         fireEvent.change(email, { target: { value: 'lady@gaga.com' } })
@@ -396,6 +397,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F3 ${label}] Actions: up, down, left, right, type email, submit
           Success message is correct`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(up)
         fireEvent.click(down)
         fireEvent.click(left)
@@ -406,6 +408,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F4 ${label}] Actions: down, right, submit
           Error message on no email is correct`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(down)
         fireEvent.click(right)
         fireEvent.click(submit)
@@ -413,6 +416,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F5 ${label}] Actions: down, right, type invalid email, submit
           Error message on invalid email is correct`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(down)
         fireEvent.click(right)
         fireEvent.change(email, { target: { value: 'bad@email' } })
@@ -421,6 +425,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F6 ${label}] Actions: down, right, type foo@bar.baz email, submit
           Error message on banned email is correct`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(down)
         fireEvent.click(right)
         fireEvent.change(email, { target: { value: 'foo@bar.baz' } })
@@ -429,6 +434,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F7 ${label}] Actions: left, type valid email, submit
           Submitting resets the email input`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(left)
         fireEvent.change(email, { target: { value: 'lady@gaga.com' } })
         fireEvent.click(submit)
@@ -437,6 +443,7 @@ test('AppClass is a class-based component, Review how to build a class-based com
       })
       test(`[F8 ${label}] Actions: up, right, type valid email, submit
           Submitting does not reset coordinates nor steps`, async () => {
+        fireEvent.click(reset)
         fireEvent.click(up)
         fireEvent.click(right)
         fireEvent.change(email, { target: { value: 'lady@gaga.com' } })

@@ -14,8 +14,8 @@ const initialState = {
   email: initialEmail,
   index: initialIndex,
   steps: initialSteps,
-  x: initialX,
-  y: initialY,
+  xx: initialX,
+  yy: initialY,
 }
 export default class AppClass extends React.Component {
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
@@ -61,16 +61,25 @@ export default class AppClass extends React.Component {
     return `Coordinates ${this.getXY()}`
   }
 
-  reset = (evt) => {
-    console.log(this.state.email)
+
+  reset = () => {
     // Use this helper to reset all states to their initial values.
     console.log(this.state.email)
-    this.setState({email: initialEmail})
-    this.setState({message: initialMessage})
-    this.setState({index: initialIndex})
-    this.setState({steps: initialSteps})
-    this.setState({xx: initialX})
-    this.setState({yy: initialY})
+
+    this.setState({
+      message: initialMessage,
+      email: initialEmail,
+      index: initialIndex,
+      steps: initialSteps,
+      xx: initialX,
+      yy: initialY,
+    })
+    // this.setState({...state, email: initialEmail})
+    // this.setState({message: initialMessage})
+    // this.setState({index: initialIndex})
+    // this.setState({steps: initialSteps})
+    // this.setState({xx: initialX})
+    // this.setState({yy: initialY})
   }
 
   getNextIndex = (direction) => {
@@ -127,14 +136,22 @@ export default class AppClass extends React.Component {
     return `You moved ${this.state.steps} times`
   }
 
+  handleSubmit=()=> {
+    this.onChange(this.state);
+}
+
+
   onChange = (evt) => {
     // You will need this to update the value of the input.
     evt.preventDefault();
-    this.setState({email: evt.target.value})
+    this.setState({...this.state, email: evt.target.value})
+    console.log(evt.target.value);
+    console.log(this.state)
   }
 
   onSubmit = (evt) => {
     evt.preventDefault();
+    this.setState({email: initialEmail});
     // Use a POST request to send a payload to the server.
     axios.post('http://localhost:9000/api/result', {
       'x': this.state.xx,
@@ -144,9 +161,9 @@ export default class AppClass extends React.Component {
     })
     .then(res => {
       this.setState({message: res.data.message})
-      this.setState({email: initialEmail});
     })
     .catch(err => this.setState({message: err.response.data.message}))
+    
   }
 
   render() {
@@ -177,7 +194,7 @@ export default class AppClass extends React.Component {
           <button id="reset" onClick={this.reset}>reset</button>
         </div>
         <form onSubmit={this.onSubmit}>
-          <input id="email" type="email" placeholder="type email"  onChange={this.onChange}></input>
+          <input id="email" type="email" placeholder="type email" onChange={this.onChange}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>
