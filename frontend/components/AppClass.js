@@ -145,8 +145,6 @@ export default class AppClass extends React.Component {
     // You will need this to update the value of the input.
     evt.preventDefault();
     this.setState({...this.state, email: evt.target.value})
-    console.log(evt.target.value);
-    console.log(this.state)
   }
 
   onSubmit = (evt) => {
