@@ -91,7 +91,6 @@ export default function AppFunctional(props) {
       else {setIndex(index+1);
          setSteps(steps + 1)
         x= x + 1
-        console.log(x)
         }
     }
     if(direction ==='up'){
