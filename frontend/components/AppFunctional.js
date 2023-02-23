@@ -137,12 +137,14 @@ export default function AppFunctional(props) {
     })
     .then(res => {
       setMessage(res.data.message);
+      console.log(message);
       setEmail(initialEmail);
     })
     .catch(err => {
       setMessage(err.response.data.message)
       setEmail(initialEmail);
     });
+    console.log(message);
   }
 
   return (
@@ -161,14 +163,14 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message">{message}</h3>
+        <h3 id="message">{`${message}`}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={()=>getNextIndex('left')}>LEFT</button>
         <button id="up" onClick={()=>getNextIndex('up')}>UP</button>
         <button id="right" onClick={()=>getNextIndex('right')}>RIGHT</button>
         <button id="down" onClick={()=>getNextIndex('down')}>DOWN</button>
-        <button id="reset" onClick={reset} >reset</button>
+        <button id="reset" onClick={reset}>reset</button>
       </div>
       <form onSubmit={onSubmit}>
         <input id="email" type="email" placeholder="type email" value ={email} onChange={onChange}></input>
